@@ -10,12 +10,10 @@ import Footer from "./Footer";
 
 import { Routes, Route, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { inventory } from "./data";
 
 function App() {
-  const [products, setProducts] = useState(() => {
-    console.log(JSON.parse(localStorage.getItem("products")));
-    return JSON.parse(localStorage.getItem("products")) ?? [];
-  });
+  const [products, setProducts] = useState(inventory);
   // const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const [validation, setValidation] = useState("");
@@ -24,17 +22,15 @@ function App() {
 
   const [imgData, setImgData] = useState("");
 
-  const [cart, setCart] = useState(() => {
-    return JSON.parse(localStorage.getItem("cart")) ?? [];
-  });
+  const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
-  }, [products]);
+  // useEffect(() => {
+  //   localStorage.setItem("products", JSON.stringify(products));
+  // }, [products]);
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(cart));
+  // }, [cart]);
 
   function handleAddProductForm(event) {
     event.preventDefault();

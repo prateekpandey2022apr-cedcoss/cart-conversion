@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { inventory } from "./data";
 import Product from "./Product";
 import SearchBar from "./SearchBar";
 
@@ -11,9 +12,9 @@ function ProductList(props) {
         <nav className="container">
           <p>Showing 1-10 of 20 results</p>
           <div className="row">
-            {props.products.length > 0 ? (
+            {inventory.length > 0 ? (
               <>
-                {props.products.map((product, idx) => {
+                {inventory.map((product, idx) => {
                   return (
                     <Product
                       key={idx}
