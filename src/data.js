@@ -56,7 +56,7 @@ export const inventory = [
   },
 
   {
-    id: 7,
+    id: 8,
     name: "Reebok Sand 50",
     price: 8000,
     image: "../shoes/2008.png",
