@@ -52,15 +52,15 @@ export const inventory = [
     name: "Leather Sneakers 2",
     price: 7000,
     image: "../shoes/2007.png",
-    bgColor: "cornsilk",
+    bgColor: "lemonchiffon",
   },
 
   {
     id: 8,
     name: "Reebok Sand 50",
     price: 8000,
-    image: "../shoes/2008.png",
-    bgColor: "honeydew",
+    image: "../shoes/2006.png",
+    bgColor: "lavender",
   },
 
   {

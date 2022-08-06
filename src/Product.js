@@ -9,7 +9,7 @@ function Product(props) {
         <img
           alt=""
           src={props.details.image}
-          width={230}
+          width={210}
           style={{ backgroundColor: `${props.details.bgColor}` }}
         />
       </p>

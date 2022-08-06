@@ -14,28 +14,23 @@ function Footer(props) {
             </p>
           </div>
           <div className="footer-links">
-            <ul>
-              <li>
-                <a href="#/">
-                  <i className="fa-brands fa-facebook"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#/">
-                  <i className="fa-brands fa-instagram-square"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#/">
-                  <i className="fa-brands fa-pinterest"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#/">
-                  <i className="fa-brands fa-github"></i>
-                </a>
-              </li>
-            </ul>
+            <div>
+              <a href="#/">
+                <i className="fa-brands fa-facebook"></i>
+              </a>
+
+              <a href="#/">
+                <i className="fa-brands fa-instagram-square"></i>
+              </a>
+
+              <a href="#/">
+                <i className="fa-brands fa-pinterest"></i>
+              </a>
+
+              <a href="#/">
+                <i className="fa-brands fa-github"></i>
+              </a>
+            </div>
           </div>
         </div>
       </nav>

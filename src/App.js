@@ -1,16 +1,20 @@
 import logo from "./logo.svg";
 import "./App.css";
-
 import Navbar from "./Navbar";
 import SearchBar from "./SearchBar";
 import ProductList from "./ProductList";
 import AddProductForm from "./AddProductForm";
 import Cart from "./Cart";
+import Checkout from "./Checkout";
+import Success from "./Success";
+
 import Footer from "./Footer";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { inventory } from "./data";
+
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [products, setProducts] = useState(inventory);
@@ -24,6 +28,12 @@ function App() {
 
   const [cart, setCart] = useState([]);
 
+  const [query, setQuery] = useState("");
+  const [isSearchSubmit, setIsSearchSubmit] = useState(false);
+
+  const navigate = useNavigate();
+  let location = useLocation();
+
   // useEffect(() => {
   //   localStorage.setItem("products", JSON.stringify(products));
   // }, [products]);
@@ -31,6 +41,24 @@ function App() {
   // useEffect(() => {
   //   localStorage.setItem("cart", JSON.stringify(cart));
   // }, [cart]);
+
+  useEffect(() => {
+    console.log(location);
+
+    if (location.pathname === "/" && location.search === "") {
+      setProducts(inventory);
+      setIsSearchSubmit(false);
+      setQuery("");
+    }
+  }, [location]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [cart]);
 
   function handleAddProductForm(event) {
     event.preventDefault();
@@ -157,16 +185,43 @@ function App() {
     setCart([]);
   }
 
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    console.log("@@");
+
+    debugger;
+
+    console.log(
+      inventory.filter((item) => item.name.toLocaleLowerCase().includes(query))
+    );
+
+    setProducts(
+      inventory.filter((item) => item.name.toLocaleLowerCase().includes(query))
+    );
+
+    setIsSearchSubmit(true);
+
+    navigate(`?query=${query}`);
+  }
+
   return (
     <>
-      <Navbar cart={cart} />
+      <Navbar
+        query={query}
+        setQuery={setQuery}
+        cart={cart}
+        handleSearchSubmit={handleSearchSubmit}
+      />
       <Routes>
         <Route
           path="/"
           element={
             <ProductList
+              query={query}
               products={products}
+              inventory={inventory}
               handleAddCartBtn={handleAddCartBtn}
+              isSearchSubmit={isSearchSubmit}
             />
           }
         ></Route>
@@ -193,6 +248,16 @@ function App() {
               emptyCart={emptyCart}
             />
           }
+        ></Route>
+
+        <Route
+          path="/checkout"
+          element={<Checkout cart={cart} emptyCart={emptyCart} />}
+        ></Route>
+
+        <Route
+          path="/success"
+          element={<Success cart={cart} emptyCart={emptyCart} />}
         ></Route>
       </Routes>
       <Footer />
