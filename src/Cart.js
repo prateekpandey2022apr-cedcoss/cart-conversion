@@ -10,9 +10,9 @@ function Cart(props) {
         <div className="container">
           {/* <div className="cart-items"> */}
           {props.cart.length > 0 ? (
-            props.cart.map((item) => {
+            props.cart.map((item, idx) => {
               return (
-                <div className="row">
+                <div className="row" key={idx}>
                   <div className="col-4 cart-item">
                     <div className="item-img">
                       <img
@@ -31,9 +31,16 @@ function Cart(props) {
                       <button
                         className="dec"
                         data-id={item.id}
-                        onClick={props.handleQtyUpdate}
+                        // onClick={props.handleQtyUpdate}
+                        onClick={(event) => {
+                          if (item.quantity !== 1) {
+                            props.handleQtyUpdate(event);
+                          } else if (window.confirm("Are you sure")) {
+                            props.handleQtyUpdate(event);
+                          }
+                        }}
                       >
-                        <i class="fa-solid fa-circle-minus"></i>
+                        <i className="fa-solid fa-circle-minus"></i>
                       </button>
                       <span className="quantity">{item.quantity}</span>
                       <button
@@ -41,7 +48,7 @@ function Cart(props) {
                         data-id={item.id}
                         onClick={props.handleQtyUpdate}
                       >
-                        <i class="fa-solid fa-circle-plus"></i>
+                        <i className="fa-solid fa-circle-plus"></i>
                       </button>
                     </div>
                   </div>
@@ -56,66 +63,6 @@ function Cart(props) {
             </div>
           )}
 
-          {/* {props.cart.length > 0 ? (
-            <>
-              <table>
-                <tbody>
-                  <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                  </tr>
-
-                  {props.cart.map((cartItem, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>{cartItem.name}</td>
-                        <td> &#8377;{cartItem.price}</td>
-                        <td>
-                          <span className="increment">
-                            <a
-                              href="#/"
-                              className="inc"
-                              data-id={cartItem.id}
-                              onClick={props.handleQtyUpdate}
-                            >
-                              <i className="fa-solid fa-plus"></i>
-                            </a>
-                          </span>
-                          <span>{cartItem.quantity}</span>
-                          <span className="decrement">
-                            <a
-                              href="#/"
-                              className="dec"
-                              data-id={cartItem.id}
-                              onClick={props.handleQtyUpdate}
-                            >
-                              <i className="fa-solid fa-minus"></i>
-                            </a>
-                          </span>
-                        </td>
-                        <td> &#8377; {cartItem.price * cartItem.quantity}</td>
-                      </tr>
-                    );
-                  })}
-
-                  <tr>
-                    <td colSpan="3">Total</td>
-                    <td>&#8377; {CartTotal(props.cart)}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <button className="btn" onClick={props.emptyCart}>
-                  Empty Cart
-                </button>
-              </p>
-            </>
-          ) : (
-            <p className="">Cart Empty &#128532;</p>
-          )} */}
-          {/* </div> */}
           {props.cart.length > 0 && (
             <>
               <div className="row subtotal">
@@ -137,7 +84,7 @@ function Cart(props) {
                   <p>
                     <Link to="/checkout" className="cart-btn">
                       Proceed to Checkout{" "}
-                      <i class="fa-solid fa-indian-rupee-sign"></i>
+                      <i className="fa-solid fa-indian-rupee-sign"></i>
                     </Link>
                   </p>
                 </div>

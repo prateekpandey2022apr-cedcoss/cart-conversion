@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { inventory } from "./data";
 
 import { useNavigate } from "react-router-dom";
+import SignUp from "./SignUp";
+import Login from "./Login";
 
 function App() {
   const [products, setProducts] = useState(inventory);
@@ -30,6 +32,7 @@ function App() {
 
   const [query, setQuery] = useState("");
   const [isSearchSubmit, setIsSearchSubmit] = useState(false);
+  const [priceSort, setPriceSort] = useState("");
 
   const navigate = useNavigate();
   let location = useLocation();
@@ -49,6 +52,8 @@ function App() {
       setProducts(inventory);
       setIsSearchSubmit(false);
       setQuery("");
+      setPriceSort("");
+      // navigate("/");
     }
   }, [location]);
 
@@ -140,6 +145,11 @@ function App() {
 
       const productId = event.currentTarget.getAttribute("data-id");
 
+      // one_item cart.find((item) => item.id == 8 && item.quantity == 1);
+
+      if (1) {
+      }
+
       setCart(
         cart.filter((cartItem) => {
           if (cartItem.id == productId) {
@@ -195,13 +205,33 @@ function App() {
       inventory.filter((item) => item.name.toLocaleLowerCase().includes(query))
     );
 
-    setProducts(
-      inventory.filter((item) => item.name.toLocaleLowerCase().includes(query))
+    const filteredItems = inventory.filter((item) =>
+      item.name.toLocaleLowerCase().includes(query)
     );
+
+    let _priceSort;
+
+    if (event.target.nodeName == "SELECT") {
+      _priceSort = event.target.value;
+
+      if (_priceSort === "asc") {
+        filteredItems.sort((a, b) => a.price - b.price);
+      } else if (_priceSort === "desc") {
+        filteredItems.sort((a, b) => b.price - a.price);
+      }
+    } else {
+      if (priceSort === "asc") {
+        filteredItems.sort((a, b) => a.price - b.price);
+      } else if (priceSort === "desc") {
+        filteredItems.sort((a, b) => b.price - a.price);
+      }
+    }
+
+    setProducts(filteredItems);
 
     setIsSearchSubmit(true);
 
-    navigate(`?query=${query}`);
+    navigate(`/?query=${query}`);
   }
 
   return (
@@ -222,6 +252,9 @@ function App() {
               inventory={inventory}
               handleAddCartBtn={handleAddCartBtn}
               isSearchSubmit={isSearchSubmit}
+              priceSort={priceSort}
+              setPriceSort={setPriceSort}
+              handleSearchSubmit={handleSearchSubmit}
             />
           }
         ></Route>
@@ -258,6 +291,36 @@ function App() {
         <Route
           path="/success"
           element={<Success cart={cart} emptyCart={emptyCart} />}
+        ></Route>
+
+        <Route
+          path="/signup"
+          element={
+            <SignUp
+              product={product}
+              setProduct={setProduct}
+              handleAddProductForm={handleAddProductForm}
+              validation={validation}
+              success={success}
+              handleImageUpload={handleImageUpload}
+              imgData={imgData}
+            />
+          }
+        ></Route>
+
+        <Route
+          path="/login"
+          element={
+            <Login
+              product={product}
+              setProduct={setProduct}
+              handleAddProductForm={handleAddProductForm}
+              validation={validation}
+              success={success}
+              handleImageUpload={handleImageUpload}
+              imgData={imgData}
+            />
+          }
         ></Route>
       </Routes>
       <Footer />

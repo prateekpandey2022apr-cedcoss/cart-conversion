@@ -42,6 +42,28 @@ function ProductList(props) {
         </>
       )}
 
+      <div className="filter-container">
+        <div className="container">
+          <div className="row filter">
+            <div className="col-4">
+              <form>
+                <select
+                  value={props.priceSort}
+                  onChange={(event) => {
+                    props.setPriceSort(() => event.target.value);
+                    props.handleSearchSubmit(event);
+                  }}
+                >
+                  <option value="">Price Filter (Default)</option>
+                  <option value="asc">Incresing</option>
+                  <option value="desc">Decreasing</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="product-list-container">
         <nav className="container">
           {/* <p>Showing 1-10 of 20 results</p> */}

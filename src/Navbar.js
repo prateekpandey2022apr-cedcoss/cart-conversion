@@ -33,6 +33,10 @@ function Navbar(props) {
                 <i className="fa-solid fa-user"></i>
               </a> */}
 
+              <Link to="/signup" className="login-icon">
+                <i class="fa-solid fa-user"></i>
+              </Link>
+
               <Link to="/cart" className="cart-icon">
                 <i className="fa-solid fa-cart-shopping"></i>{" "}
                 <span className="cart-count">{props.cart.length}</span>

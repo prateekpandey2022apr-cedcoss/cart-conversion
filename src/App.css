@@ -439,6 +439,19 @@ span.decrement a {
   height: 38vw;
 }
 
+.filter-container {
+  /* text-align: right; */
+  margin-top: 2em;
+}
+
+.icons a {
+  margin-left: 0.3em;
+}
+
+.login {
+  width: 50%;
+  margin: 0 auto;
+}
 
 @media screen and (max-width: 550px) {
 
